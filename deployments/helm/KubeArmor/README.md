@@ -1,5 +1,7 @@
 ## Install KubeArmor
+
 Install KubeArmor using Helm chart repo. Also see [values](#Values) for your respective environment.
+
 ```
 helm repo add kubearmor https://kubearmor.github.io/charts
 helm repo update kubearmor
@@ -7,40 +9,44 @@ helm upgrade --install kubearmor kubearmor/kubearmor -n kubearmor --create-names
 ```
 
 Install KubeArmor using Helm charts locally (for testing)
+
 ```
 cd deployments/helm/KubeArmor
 helm upgrade --install kubearmor . -n kubearmor --create-namespace
 ```
 
 ## Values
-| Key | Type | Default | Description |
-|-----|------|---------|-------------|
-| environment.name | string | generic | The target environment to install KubeArmor in. Possible values: generic, GKE, EKS, BottleRocket, k0s, k3s, minikube, microk8s |
-| kubearmor.image.repository | string | kubearmor/kubearmor | kubearmor image repo |
-| kubearmor.image.tag | string | stable | kubearmor image tag |
-| kubearmor.imagePullPolicy | string | Always | kubearmor imagePullPolicy |
-| kubearmor.args | list | [] | Specify additional args to the kubearmor daemon. See [kubearmor-args](#kubearmor-args) |
-| kubearmor.configMap.defaultFilePosture | string | audit | Default file posture for KubeArmor |
-| kubearmor.configMap.defaultNetworkPosture | string | audit | Default network posture for KubeArmor |
-| kubearmor.configMap.defaultCapabilitiesPosture | string | audit | Default capabilities posture for KubeArmor |
-| kubearmor.configMap.visibility | string | audit | Default visibility for KubeArmor |
-| kubearmorRelay.enable | bool | true | to enable/disable kubearmor-relay |
-| kubearmorRelay.image.repository | string | kubearmor/kubearmor-relay | kubearmor-relay image repo |
-| kubearmorRelay.image.tag | string | latest | kubearmor-relay image tag |
-| kubearmorRelay.imagePullPolicy | string | Always | kubearmor-relay imagePullPolicy |
-| kubearmorInit.image.repository | string | kubearmor/kubearmor-init | kubearmor-init image repo |
-| kubearmorInit.image.tag | string | stable | kubearmor-init image tag |
-| kubearmorInit.imagePullPolicy | string | Always | kubearmor-init imagePullPolicy |
-| kubeRbacProxy.image.repository | string | gcr.io/kubebuilder/kube-rbac-proxy | kube-rbac-proxy image repo |
-| kubeRbacProxy.image.tag | string | v0.15.0 | kube-rbac-proxy image tag |
-| kubeRbacProxy.imagePullPolicy | string | Always | kube-rbac-proxy imagePullPolicy |
-| kubearmorController.replicas | int | 1 | kubearmor-controller replicas |
-| kubearmorController.image.repository | string | kubearmor/kubearmor-controller | kubearmor-controller image repo |
-| kubearmorController.image.tag | string | latest | kubearmor-controller image tag |
-| kubearmorController.mutation.failurePolicy | string | Ignore | kubearmor-controller failure policy |
-| kubearmorController.imagePullPolicy | string | Always | kubearmor-controller imagePullPolicy |
+
+| Key                                            | Type   | Default                                  | Description                                                                                                                    |
+| ---------------------------------------------- | ------ | ---------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------ |
+| environment.name                               | string | generic                                  | The target environment to install KubeArmor in. Possible values: generic, GKE, EKS, BottleRocket, k0s, k3s, minikube, microk8s |
+| kubearmor.image.repository                     | string | kubearmor/kubearmor                      | kubearmor image repo                                                                                                           |
+| kubearmor.image.tag                            | string | stable                                   | kubearmor image tag                                                                                                            |
+| kubearmor.imagePullPolicy                      | string | Always                                   | kubearmor imagePullPolicy                                                                                                      |
+| kubearmor.args                                 | list   | []                                       | Specify additional args to the kubearmor daemon. See [kubearmor-args](#kubearmor-args)                                         |
+| kubearmor.configMap.defaultFilePosture         | string | audit                                    | Default file posture for KubeArmor                                                                                             |
+| kubearmor.configMap.defaultNetworkPosture      | string | audit                                    | Default network posture for KubeArmor                                                                                          |
+| kubearmor.configMap.defaultCapabilitiesPosture | string | audit                                    | Default capabilities posture for KubeArmor                                                                                     |
+| kubearmor.configMap.visibility                 | string | audit                                    | Default visibility for KubeArmor                                                                                               |
+| kubearmorRelay.enable                          | bool   | true                                     | to enable/disable kubearmor-relay                                                                                              |
+| kubearmorRelay.image.repository                | string | kubearmor/kubearmor-relay                | kubearmor-relay image repo                                                                                                     |
+| kubearmorRelay.image.tag                       | string | latest                                   | kubearmor-relay image tag                                                                                                      |
+| kubearmorRelay.imagePullPolicy                 | string | Always                                   | kubearmor-relay imagePullPolicy                                                                                                |
+| kubearmorRelay.resources                       | object | { requests: { cpu: 60m, memory: 10Mi } } | kubearmor-relay container resources requests/limits                                                                            |
+| kubearmorInit.image.repository                 | string | kubearmor/kubearmor-init                 | kubearmor-init image repo                                                                                                      |
+| kubearmorInit.image.tag                        | string | stable                                   | kubearmor-init image tag                                                                                                       |
+| kubearmorInit.imagePullPolicy                  | string | Always                                   | kubearmor-init imagePullPolicy                                                                                                 |
+| kubeRbacProxy.image.repository                 | string | gcr.io/kubebuilder/kube-rbac-proxy       | kube-rbac-proxy image repo                                                                                                     |
+| kubeRbacProxy.image.tag                        | string | v0.15.0                                  | kube-rbac-proxy image tag                                                                                                      |
+| kubeRbacProxy.imagePullPolicy                  | string | Always                                   | kube-rbac-proxy imagePullPolicy                                                                                                |
+| kubearmorController.replicas                   | int    | 1                                        | kubearmor-controller replicas                                                                                                  |
+| kubearmorController.image.repository           | string | kubearmor/kubearmor-controller           | kubearmor-controller image repo                                                                                                |
+| kubearmorController.image.tag                  | string | latest                                   | kubearmor-controller image tag                                                                                                 |
+| kubearmorController.mutation.failurePolicy     | string | Ignore                                   | kubearmor-controller failure policy                                                                                            |
+| kubearmorController.imagePullPolicy            | string | Always                                   | kubearmor-controller imagePullPolicy                                                                                           |
 
 ## kubearmor-args
+
 ```
 $ sudo ./kubearmor -h
 Usage of ./kubearmor:
@@ -97,6 +103,7 @@ Usage of ./kubearmor:
 ```
 
 ## Verify if all the resources are up and running
+
 ```
 kubectl get all -n kubearmor -l kubearmor-app
 NAME                                        READY   STATUS    RESTARTS   AGE
@@ -120,7 +127,9 @@ replicaset.apps/kubearmor-relay-5656cc5bf7        1         1         1       24
 ```
 
 ## Remove KubeArmor
+
 Uninstall KubeArmor using helm
+
 ```
 helm uninstall kubearmor -n kubearmor
 ```
